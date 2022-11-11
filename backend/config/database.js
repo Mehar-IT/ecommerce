@@ -6,14 +6,12 @@ const connectDatabase = () => {
     useUnifiedTopology: true,
     // useCreateIndex: true,
   };
-  mongoose
-    .connect(process.env.DB_URL, option)
-    .then((data) => {
-      console.log(`Mongodb connected with server: ${data.connection.host}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  mongoose.connect(process.env.DB_URL, option).then((data) => {
+    console.log(`Mongodb connected with server: ${data.connection.host}`);
+  });
+  // .catch((err) => {
+  //   console.log(err);
+  // });
 };
 
 module.exports = connectDatabase;
