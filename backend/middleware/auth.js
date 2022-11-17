@@ -1,20 +1,17 @@
 const ErrorHandler = require("../utils/errorhandlers");
 const asyncErrorHandler = require("./asyncErrorHandler");
 const JWT = require("jsonwebtoken");
+const User = require("../models/userModel");
+
 exports.isAuthenticated = asyncErrorHandler(async (req, res, next) => {
   const { token } = req.cookies;
   if (!token) {
     return next(new ErrorHandler("please login to access  this resource", 401));
   }
 
-  JWT.verify(token, process.env.JWT_KEY, (err, user) => {
-    if (err) {
-      next(new ErrorHandler("token is not valid", 401));
-    } else {
-      req.user = user;
-      next();
-    }
-  });
+  const decodedData = JWT.verify(token, process.env.JWT_KEY);
+  req.user = await User.findById(decodedData.id);
+  next();
 });
 
 exports.authorizeRole = (...roles) => {
