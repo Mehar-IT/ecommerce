@@ -118,4 +118,97 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {});
+exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.updatePassword = asyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+  const isPasswordMatch = await user.comparePassowrd(req.body.oldPassword);
+
+  if (!isPasswordMatch) {
+    return next(new ErrorHandler("Invalid old password", 400));
+  }
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("password does not match", 400));
+  }
+  user.password = req.body.newPassword;
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+exports.updateUserProfile = asyncErrorHandler(async (req, res, next) => {
+  const newUserData = { name: req.body.name, email: req.body.email };
+
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    userFindandModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+exports.getsindleUserByAdmin = asyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.updateUserByAdmin = asyncErrorHandler(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    userFindandModify: false,
+  });
+
+  if (!user) {
+    next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
+  }
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.deleteUserByAdmin = asyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
+  }
+
+  await user.remove();
+
+  res.status(200).json({
+    success: true,
+  });
+});
