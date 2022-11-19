@@ -9,6 +9,7 @@ import {
 
 export default function Header() {
   const options = {
+    burgerColor: "rgb(245, 222, 179)",
     burgerColorHover: "#eb4034",
     logo,
     logoWidth: "20vmax",
