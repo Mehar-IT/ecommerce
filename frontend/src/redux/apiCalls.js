@@ -11,6 +11,6 @@ export const getProduct = async (dispatch) => {
     const res = await publicRequest.get("/products");
     dispatch(getProductSuccess(res.data));
   } catch (error) {
-    dispatch(getProductFailed(error.response.data));
+    dispatch(getProductFailed(error.response.data.error));
   }
 };

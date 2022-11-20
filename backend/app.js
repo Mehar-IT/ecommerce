@@ -6,7 +6,9 @@ const order = require("./routes/orderRoute");
 const errorMiddleWare = require("./middleware/error");
 const notFoundError = require("./middleware/404");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1", product);

@@ -2,16 +2,30 @@ import { CgMouse } from "react-icons/all";
 import "./Home.css";
 import Product from "./Product";
 import MetaData from "../layout/MetaData";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProduct } from "../../redux/apiCalls";
+import Loader from "../layout/Loader/Loader";
+import { useAlert } from "react-alert";
 
-const product = {
-  name: "Blue shirt",
-  price: "Rs",
-  _id: "hamzatarique",
-  images: [
-    "https://www.squareyards.com/blog/wp-content/uploads/2022/03/Convert-PKR-Currency-to-INR.jpg",
-  ],
-};
 export default function Home() {
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const { loading, products, productCount, error } = useSelector(
+    (state) => state.product
+  );
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+    }
+    getProduct(dispatch);
+  }, [dispatch, error]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <MetaData title={"Ecommerce"} />
@@ -27,14 +41,10 @@ export default function Home() {
       </div>
       <h2 className="homeHeading">Featured Product</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {products &&
+          products.map((product, index) => (
+            <Product key={index} product={product} />
+          ))}
       </div>
     </>
   );
