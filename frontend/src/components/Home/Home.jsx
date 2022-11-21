@@ -20,7 +20,7 @@ export default function Home() {
       alert.error(error);
     }
     getProduct(dispatch);
-  }, [dispatch, error]);
+  }, [dispatch, error, alert]);
 
   if (loading) {
     return <Loader />;
