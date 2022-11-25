@@ -3,7 +3,7 @@ import productReducer from "./productSlice";
 import productDetailReducer from "./productDetailSlice";
 
 const reducer = combineReducers({
-  product: productReducer,
+  products: productReducer,
   productDetail: productDetailReducer,
 });
 

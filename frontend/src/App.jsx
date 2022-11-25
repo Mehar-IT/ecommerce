@@ -6,6 +6,8 @@ import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 import Home from "./components/Home/Home.jsx";
 import ProductDetail from "./components/Product/ProductDetail.jsx";
+import Products from "./components/Product/Products.jsx";
+import Search from "./components/Product/Search.jsx";
 
 function App() {
   useEffect(() => {
@@ -20,7 +22,10 @@ function App() {
       <Header />
       <Routes>
         <Route extact path="/" element={<Home />} />
+        <Route extact path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
         <Route extact path="/product/:id" element={<ProductDetail />} />
+        <Route extact path="/search" element={<Search />} />
       </Routes>
       <Footer />
     </Router>

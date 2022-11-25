@@ -10,10 +10,11 @@ import {
   getProductDetailFailed,
 } from "./productDetailSlice";
 
-export const getProduct = async (dispatch) => {
+export const getProduct = async (dispatch, keyword = "", currentPage = 1) => {
   dispatch(getProductStart());
   try {
-    const res = await publicRequest.get("/products");
+    let link = `/products?keyword=${keyword}&page=${currentPage}`;
+    const res = await publicRequest.get(link);
     dispatch(getProductSuccess(res.data));
   } catch (error) {
     dispatch(getProductFailed(error.response.data.error));

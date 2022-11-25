@@ -3,7 +3,7 @@ import "./Home.css";
 import ProductCard from "./ProductCard";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { getProduct } from "../../redux/apiCalls";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -12,7 +12,7 @@ import { reset } from "../../redux/productSlice";
 export default function Home() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { loading, products, error } = useSelector((state) => state.product);
+  const { loading, products, error } = useSelector((state) => state.products);
 
   useEffect(() => {
     if (error) {
@@ -33,7 +33,7 @@ export default function Home() {
   }
 
   return (
-    <>
+    <Fragment>
       <MetaData title={"Ecommerce"} />
       <div className="banner">
         <p>Welcome to Ecommerce</p>
@@ -52,6 +52,6 @@ export default function Home() {
             <ProductCard key={index} product={product} />
           ))}
       </div>
-    </>
+    </Fragment>
   );
 }
