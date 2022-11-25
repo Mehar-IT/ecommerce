@@ -1,19 +1,18 @@
 import { CgMouse } from "react-icons/all";
 import "./Home.css";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProduct } from "../../redux/apiCalls";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import { reset } from "../../redux/productSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { loading, products, productCount, error } = useSelector(
-    (state) => state.product
-  );
+  const { loading, products, error } = useSelector((state) => state.product);
 
   useEffect(() => {
     if (error) {
@@ -21,6 +20,13 @@ export default function Home() {
     }
     getProduct(dispatch);
   }, [dispatch, error, alert]);
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(reset());
+    }
+  }, [error]);
 
   if (loading) {
     return <Loader />;
@@ -43,7 +49,7 @@ export default function Home() {
       <div className="container" id="container">
         {products &&
           products.map((product, index) => (
-            <Product key={index} product={product} />
+            <ProductCard key={index} product={product} />
           ))}
       </div>
     </>

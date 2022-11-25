@@ -26,8 +26,6 @@ export const getProductDetail = async (dispatch, id) => {
     const res = await publicRequest.get(`/product/${id}`);
     dispatch(getProductDetailSuccess(res.data));
   } catch (error) {
-    console.log(error.response.data.error);
-
     dispatch(getProductDetailFailed(error.response.data.error));
   }
 };
