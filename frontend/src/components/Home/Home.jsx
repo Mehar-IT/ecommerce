@@ -15,18 +15,15 @@ export default function Home() {
   const { loading, products, error } = useSelector((state) => state.products);
 
   useEffect(() => {
-    if (error) {
-      alert.error(error);
-    }
     getProduct(dispatch);
-  }, [dispatch, error, alert]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(reset());
     }
-  }, [error]);
+  }, [error, alert]);
 
   if (loading) {
     return <Loader />;

@@ -17,15 +17,18 @@ exports.getAllProducts = asyncErrorHandler(async (req, res) => {
   const productCount = await Product.countDocuments();
   const apifeature = new ApiFeature(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resultPerPage);
-  const products = await apifeature.query;
+    .filter();
+  let products = await apifeature.query;
+  let filteredProductsCount = products.length;
+  apifeature.pagination(resultPerPage);
+  products = await apifeature.query.clone();
 
   res.status(200).json({
     success: true,
     products,
     productCount,
     resultPerPage,
+    filteredProductsCount,
   });
 });
 

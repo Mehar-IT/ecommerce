@@ -29,14 +29,14 @@ export default function ProductDetail() {
 
   useEffect(() => {
     getProductDetail(dispatch, id);
-  }, [dispatch, id, alert]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(reset());
     }
-  }, [error]);
+  }, [error, alert]);
 
   if (loading) {
     return <Loader />;
