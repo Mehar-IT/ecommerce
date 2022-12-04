@@ -3,17 +3,20 @@ import {
   getProductStart,
   getProductSuccess,
   getProductFailed,
-} from "./productSlice";
+} from "../productSlice";
 import {
   getProductDetailStart,
   getProductDetailSuccess,
   getProductDetailFailed,
-} from "./productDetailSlice";
+} from "../productDetailSlice";
 import {
   userRequestStart,
   userRequestSuccess,
   userRequestFailed,
-} from "./userSlice";
+  registerUserRequestStart,
+  registerUserRequestSuccess,
+  registerUserRequestFailed,
+} from "../userSlice";
 
 export const getProduct = async (
   dispatch,
@@ -55,5 +58,18 @@ export const loginUser = async (dispatch, email, password) => {
     dispatch(userRequestSuccess(res.data));
   } catch (error) {
     dispatch(userRequestFailed(error.response.data.error));
+  }
+};
+
+export const registerUser = async (dispatch, userData) => {
+  dispatch(registerUserRequestStart());
+  try {
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const res = await publicRequest.post(`/register`, userData, config);
+    console.log(res.data);
+
+    dispatch(registerUserRequestSuccess(res.data));
+  } catch (error) {
+    dispatch(registerUserRequestFailed(error.response.data.error));
   }
 };

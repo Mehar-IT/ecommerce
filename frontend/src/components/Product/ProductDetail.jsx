@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import "./productDetail.css";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../../redux/apiCalls";
+import { getProductDetail } from "../../redux/utils/apiCalls";
 import { useParams } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import ReactStars from "react-rating-stars-component";

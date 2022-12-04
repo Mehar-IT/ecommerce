@@ -6,7 +6,7 @@ import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import FaceIcon from "@mui/icons-material/Face";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/apiCalls";
+import { loginUser, registerUser } from "../../redux/utils/apiCalls";
 import { reset } from "../../redux/userSlice";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
@@ -48,6 +48,7 @@ export default function LoginSignUp() {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+    registerUser(dispatch, myForm);
   };
 
   const registerDataChange = (e) => {

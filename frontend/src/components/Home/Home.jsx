@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { getProduct } from "../../redux/apiCalls";
+import { getProduct } from "../../redux/utils/apiCalls";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import { reset } from "../../redux/productSlice";
