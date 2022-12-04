@@ -1,15 +1,29 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
 import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import FaceIcon from "@mui/icons-material/Face";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/apiCalls";
+import { reset } from "../../redux/userSlice";
+import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginSignUp() {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
+
+  const navigate = useNavigate();
+
+  const alert = useAlert();
+
+  const dispatch = useDispatch();
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -23,12 +37,12 @@ export default function LoginSignUp() {
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
-  const loginSubmit = () => {
-    console.log("form submitt");
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    loginUser(dispatch, loginEmail, loginPassword);
   };
   const registerSubmit = (e) => {
     e.preventDefault();
-    console.log("form submitt");
     const myForm = new FormData();
     myForm.set("name", name);
     myForm.set("email", email);
@@ -51,6 +65,16 @@ export default function LoginSignUp() {
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(reset());
+    }
+    if (isAuthenticated) {
+      navigate("/account");
+    }
+  }, [error, alert, dispatch, isAuthenticated, navigate]);
+
   const switchTabs = (e, tab) => {
     if (tab === "login") {
       switcherTab.current.classList.add("shiftToNeutral");
@@ -68,6 +92,9 @@ export default function LoginSignUp() {
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <Fragment>
       <div className="LoginSignUpContainer">

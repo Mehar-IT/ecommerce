@@ -1,14 +1,19 @@
+import { publicRequest, userRequest } from "./requestMethod";
 import {
   getProductStart,
   getProductSuccess,
   getProductFailed,
 } from "./productSlice";
-import { publicRequest, userRequest } from "./requestMethod";
 import {
   getProductDetailStart,
   getProductDetailSuccess,
   getProductDetailFailed,
 } from "./productDetailSlice";
+import {
+  userRequestStart,
+  userRequestSuccess,
+  userRequestFailed,
+} from "./userSlice";
 
 export const getProduct = async (
   dispatch,
@@ -39,5 +44,16 @@ export const getProductDetail = async (dispatch, id) => {
     dispatch(getProductDetailSuccess(res.data));
   } catch (error) {
     dispatch(getProductDetailFailed(error.response.data.error));
+  }
+};
+
+export const loginUser = async (dispatch, email, password) => {
+  dispatch(userRequestStart());
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const res = await publicRequest.post(`/login`, { email, password }, config);
+    dispatch(userRequestSuccess(res.data));
+  } catch (error) {
+    dispatch(userRequestFailed(error.response.data.error));
   }
 };
