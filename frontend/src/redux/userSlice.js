@@ -10,27 +10,48 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    userRequestStart: (state) => {
+    loginRequestStart: (state) => {
       state.loading = true;
     },
-    userRequestSuccess: (state, action) => {
+    loginRequestSuccess: (state, action) => {
       state.loading = false;
       state.user = action.payload;
       state.isAuthenticated = true;
     },
-    userRequestFailed: (state, action) => {
+    loginRequestFailed: (state, action) => {
       state.error = action.payload;
     },
 
-    registerUserRequestStart: (state) => {
+    registerRequestStart: (state) => {
       state.loading = true;
     },
-    registerUserRequestSuccess: (state, action) => {
+    registerRequestSuccess: (state, action) => {
       state.loading = false;
       state.user = action.payload;
       state.isAuthenticated = true;
     },
-    registerUserRequestFailed: (state, action) => {
+    registerRequestFailed: (state, action) => {
+      state.error = action.payload;
+    },
+
+    loadRequestStart: (state) => {
+      state.loading = true;
+    },
+    loadRequestSuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
+    loadRequestFailed: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+    },
+
+    logoutSuccess: () => initialState,
+
+    logoutFailed: (state, action) => {
       state.error = action.payload;
     },
     reset: () => initialState,
@@ -38,12 +59,17 @@ const userSlice = createSlice({
 });
 
 export const {
-  userRequestStart,
-  userRequestSuccess,
-  userRequestFailed,
-  registerUserRequestStart,
-  registerUserRequestSuccess,
-  registerUserRequestFailed,
+  loginRequestStart,
+  loginRequestSuccess,
+  loginRequestFailed,
+  registerRequestStart,
+  registerRequestSuccess,
+  registerRequestFailed,
+  loadRequestStart,
+  loadRequestSuccess,
+  loadRequestFailed,
+  logoutSuccess,
+  logoutFailed,
   reset,
 } = userSlice.actions;
 export default userSlice.reducer;

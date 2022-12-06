@@ -10,12 +10,17 @@ import {
   getProductDetailFailed,
 } from "../productDetailSlice";
 import {
-  userRequestStart,
-  userRequestSuccess,
-  userRequestFailed,
-  registerUserRequestStart,
-  registerUserRequestSuccess,
-  registerUserRequestFailed,
+  loginRequestStart,
+  loginRequestSuccess,
+  loginRequestFailed,
+  registerRequestStart,
+  registerRequestSuccess,
+  registerRequestFailed,
+  loadRequestStart,
+  loadRequestSuccess,
+  loadRequestFailed,
+  logoutSuccess,
+  logoutFailed,
 } from "../userSlice";
 
 export const getProduct = async (
@@ -51,25 +56,41 @@ export const getProductDetail = async (dispatch, id) => {
 };
 
 export const loginUser = async (dispatch, email, password) => {
-  dispatch(userRequestStart());
+  dispatch(loginRequestStart());
   try {
     const config = { headers: { "Content-Type": "application/json" } };
     const res = await publicRequest.post(`/login`, { email, password }, config);
-    dispatch(userRequestSuccess(res.data));
+    dispatch(loginRequestSuccess(res.data.user));
   } catch (error) {
-    dispatch(userRequestFailed(error.response.data.error));
+    dispatch(loginRequestFailed(error.response.data.error));
   }
 };
 
 export const registerUser = async (dispatch, userData) => {
-  dispatch(registerUserRequestStart());
+  dispatch(registerRequestStart());
   try {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
     const res = await publicRequest.post(`/register`, userData, config);
-    console.log(res.data);
-
-    dispatch(registerUserRequestSuccess(res.data));
+    dispatch(registerRequestSuccess(res.data.user));
   } catch (error) {
-    dispatch(registerUserRequestFailed(error.response.data.error));
+    dispatch(registerRequestFailed(error.response.data.error));
+  }
+};
+
+export const loadUser = async (dispatch) => {
+  dispatch(loadRequestStart());
+  try {
+    const res = await publicRequest.get(`/me`);
+    dispatch(loadRequestSuccess(res.data.user));
+  } catch (error) {
+    dispatch(loadRequestFailed(error.response.data.error));
+  }
+};
+export const logout = async (dispatch) => {
+  try {
+    await publicRequest.get(`/logout`);
+    dispatch(logoutSuccess());
+  } catch (error) {
+    dispatch(logoutFailed(error.response.data.error));
   }
 };
