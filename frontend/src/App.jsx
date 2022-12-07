@@ -12,6 +12,8 @@ import LoginSignUp from "./components/User/LoginSignUp.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./redux/utils/apiCalls";
 import UserOption from "./components/layout/Header/UserOption.jsx";
+import Profile from "./components/User/Profile.jsx";
+import ProtectedRoute from "./components/Route/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,9 @@ function App() {
       {isAuthenticated && <UserOption user={user} />}
       <Routes>
         <Route extact path="/" element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route extact path="/account" element={<Profile />} />
+        </Route>
         <Route extact path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route extact path="/product/:id" element={<ProductDetail />} />

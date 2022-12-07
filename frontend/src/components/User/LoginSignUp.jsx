@@ -10,6 +10,7 @@ import { loginUser, registerUser } from "../../redux/utils/apiCalls";
 import { reset } from "../../redux/userSlice";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../layout/MetaData";
 
 export default function LoginSignUp() {
   const loginTab = useRef(null);
@@ -98,6 +99,7 @@ export default function LoginSignUp() {
   }
   return (
     <Fragment>
+      <MetaData title={"Ecomerce -- User Login"} />
       <div className="LoginSignUpContainer">
         <div className="LoginSignUpBox">
           <div>
