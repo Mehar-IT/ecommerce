@@ -177,7 +177,7 @@ export default function LoginSignUp() {
               <input
                 type="file"
                 name="avatar"
-                accept="image/*"
+                accept="image/png, image/jpg, image/jpeg"
                 onChange={registerDataChange}
               />
             </div>
