@@ -14,6 +14,7 @@ import { loadUser } from "./redux/utils/apiCalls";
 import UserOption from "./components/layout/Header/UserOption.jsx";
 import Profile from "./components/User/Profile.jsx";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
+import UpdateProfile from "./components/User/UpdateProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route extact path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
           <Route extact path="/account" element={<Profile />} />
+          <Route extact path="/me/update" element={<UpdateProfile />} />
         </Route>
         <Route extact path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />

@@ -22,6 +22,11 @@ import {
   logoutSuccess,
   logoutFailed,
 } from "../userSlice";
+import {
+  updateProfileStart,
+  updateProfileSuccess,
+  updateProfileFailed,
+} from "../updateProfileSlice";
 
 export const getProduct = async (
   dispatch,
@@ -92,5 +97,16 @@ export const logout = async (dispatch) => {
     dispatch(logoutSuccess());
   } catch (error) {
     dispatch(logoutFailed(error.response.data.error));
+  }
+};
+
+export const updateProfile = async (dispatch, userData) => {
+  try {
+    dispatch(updateProfileStart());
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const { data } = await publicRequest.put(`/me/update`, userData, config);
+    dispatch(updateProfileSuccess(data.success));
+  } catch (error) {
+    dispatch(updateProfileFailed(error.response.data.error));
   }
 };
