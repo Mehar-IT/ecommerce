@@ -19,6 +19,17 @@ const updateProfileSlice = createSlice({
     updateProfileFailed: (state, action) => {
       state.error = action.payload;
     },
+
+    updatePasswordStart: (state) => {
+      state.loading = true;
+    },
+    updatePasswordSuccess: (state, action) => {
+      state.loading = false;
+      state.isUpdated = action.payload;
+    },
+    updatePasswordFailed: (state, action) => {
+      state.error = action.payload;
+    },
     reset: () => initialState,
   },
 });
@@ -27,6 +38,9 @@ export const {
   updateProfileStart,
   updateProfileSuccess,
   updateProfileFailed,
+  updatePasswordStart,
+  updatePasswordSuccess,
+  updatePasswordFailed,
   reset,
 } = updateProfileSlice.actions;
 export default updateProfileSlice.reducer;

@@ -26,6 +26,9 @@ import {
   updateProfileStart,
   updateProfileSuccess,
   updateProfileFailed,
+  updatePasswordStart,
+  updatePasswordSuccess,
+  updatePasswordFailed,
 } from "../updateProfileSlice";
 
 export const getProduct = async (
@@ -108,5 +111,20 @@ export const updateProfile = async (dispatch, userData) => {
     dispatch(updateProfileSuccess(data.success));
   } catch (error) {
     dispatch(updateProfileFailed(error.response.data.error));
+  }
+};
+
+export const updatePassword = async (dispatch, passwords) => {
+  try {
+    dispatch(updatePasswordStart());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.put(
+      `/password/update`,
+      passwords,
+      config
+    );
+    dispatch(updatePasswordSuccess(data.success));
+  } catch (error) {
+    dispatch(updatePasswordFailed(error.response.data.error));
   }
 };
