@@ -4,18 +4,20 @@ import WebFont from "webfontloader";
 import { useEffect } from "react";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
-import Home from "./components/Home/Home.jsx";
-import ProductDetail from "./components/Product/ProductDetail.jsx";
-import Products from "./components/Product/Products.jsx";
-import Search from "./components/Product/Search.jsx";
-import LoginSignUp from "./components/User/LoginSignUp.jsx";
+import Home from "./components/Home/Home";
+import ProductDetail from "./components/Product/ProductDetail";
+import Products from "./components/Product/Products";
+import Search from "./components/Product/Search";
+import LoginSignUp from "./components/User/LoginSignUp";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./redux/utils/apiCalls";
-import UserOption from "./components/layout/Header/UserOption.jsx";
-import Profile from "./components/User/Profile.jsx";
+import UserOption from "./components/layout/Header/UserOption";
+import Profile from "./components/User/Profile";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
+import ForgotPassword from "./components/User/ForgotPassword";
+import ResetPassword from "./components/User/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +46,12 @@ function App() {
         <Route extact path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route extact path="/product/:id" element={<ProductDetail />} />
+        <Route extact path="/password/forgot" element={<ForgotPassword />} />
+        <Route
+          extact
+          path="/password/reset/:token"
+          element={<ResetPassword />}
+        />
         <Route extact path="/search" element={<Search />} />
         <Route extact path="/login" element={<LoginSignUp />} />
       </Routes>

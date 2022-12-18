@@ -30,6 +30,7 @@ const updateProfileSlice = createSlice({
     updatePasswordFailed: (state, action) => {
       state.error = action.payload;
     },
+
     reset: () => initialState,
   },
 });

@@ -30,6 +30,11 @@ import {
   updatePasswordSuccess,
   updatePasswordFailed,
 } from "../updateProfileSlice";
+import {
+  forgotPasswordStart,
+  forgotPasswordSuccess,
+  forgotPasswordFailed,
+} from "../forgotPassSlice";
 
 export const getProduct = async (
   dispatch,
@@ -126,5 +131,20 @@ export const updatePassword = async (dispatch, passwords) => {
     dispatch(updatePasswordSuccess(data.success));
   } catch (error) {
     dispatch(updatePasswordFailed(error.response.data.error));
+  }
+};
+
+export const forgotPassword = async (dispatch, email) => {
+  try {
+    dispatch(forgotPasswordStart());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.post(
+      `/password/forgot`,
+      email,
+      config
+    );
+    dispatch(forgotPasswordSuccess(data.message));
+  } catch (error) {
+    dispatch(forgotPasswordFailed(error.response.data.error));
   }
 };
