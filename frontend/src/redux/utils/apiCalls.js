@@ -34,6 +34,9 @@ import {
   forgotPasswordStart,
   forgotPasswordSuccess,
   forgotPasswordFailed,
+  resetPasswordStart,
+  resetPasswordSuccess,
+  resetPasswordFailed,
 } from "../forgotPassSlice";
 
 export const getProduct = async (
@@ -146,5 +149,20 @@ export const forgotPassword = async (dispatch, email) => {
     dispatch(forgotPasswordSuccess(data.message));
   } catch (error) {
     dispatch(forgotPasswordFailed(error.response.data.error));
+  }
+};
+
+export const resetPassword = async (dispatch, token, passwords) => {
+  try {
+    dispatch(resetPasswordStart());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.put(
+      `/password/reset/${token}`,
+      passwords,
+      config
+    );
+    dispatch(resetPasswordSuccess(data.success));
+  } catch (error) {
+    dispatch(resetPasswordFailed(error.response.data.error));
   }
 };

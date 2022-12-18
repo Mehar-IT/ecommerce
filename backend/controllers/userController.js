@@ -70,9 +70,10 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
   const resetToken = user.resetPassword();
   await user.save({ validateBeforeSave: false });
 
-  const resetPassword = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  const resetPassword = `${process.env.FRONTEND_URL}password/reset/${resetToken}`;
+  // const resetPassword = `${req.protocol}://${req.get(
+  //   "host"
+  // )}/api/v1/password/reset/${resetToken}`;
 
   const message = `your password reset token is :- \n\n ${resetPassword} \n\n If you have not requested this email then, please ignore it`;
 
@@ -108,7 +109,7 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
   });
 
   if (!user) {
-    next(
+    return next(
       new ErrorHandler(
         "reset password token is invalid or has been expired",
         400
@@ -117,7 +118,7 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    next(new ErrorHandler("Password does not match", 400));
+    return next(new ErrorHandler("Password does not match", 400));
   }
 
   user.password = req.body.password;

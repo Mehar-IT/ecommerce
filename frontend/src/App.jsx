@@ -43,15 +43,16 @@ function App() {
           <Route extact path="/me/update" element={<UpdateProfile />} />
           <Route extact path="/password/update" element={<UpdatePassword />} />
         </Route>
-        <Route extact path="/products" element={<Products />} />
-        <Route path="/products/:keyword" element={<Products />} />
-        <Route extact path="/product/:id" element={<ProductDetail />} />
-        <Route extact path="/password/forgot" element={<ForgotPassword />} />
         <Route
           extact
           path="/password/reset/:token"
           element={<ResetPassword />}
         />
+        <Route extact path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
+        <Route extact path="/product/:id" element={<ProductDetail />} />
+        <Route extact path="/password/forgot" element={<ForgotPassword />} />
+
         <Route extact path="/search" element={<Search />} />
         <Route extact path="/login" element={<LoginSignUp />} />
       </Routes>
