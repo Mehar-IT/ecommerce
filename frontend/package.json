@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
     "@mui/styles": "^5.10.14",
@@ -26,6 +27,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
+    "redux-persist": "^6.0.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

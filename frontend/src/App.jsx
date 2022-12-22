@@ -18,6 +18,7 @@ import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,9 +53,9 @@ function App() {
         <Route path="/products/:keyword" element={<Products />} />
         <Route extact path="/product/:id" element={<ProductDetail />} />
         <Route extact path="/password/forgot" element={<ForgotPassword />} />
-
         <Route extact path="/search" element={<Search />} />
         <Route extact path="/login" element={<LoginSignUp />} />
+        <Route extact path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </Router>

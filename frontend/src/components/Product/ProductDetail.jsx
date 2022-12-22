@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./productDetail.css";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../../redux/utils/apiCalls";
+import { getProductDetail, addItemsToCart } from "../../redux/utils/apiCalls";
 import { useParams } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import ReactStars from "react-rating-stars-component";
@@ -13,6 +13,7 @@ import { reset } from "../../redux/productDetailSlice";
 
 export default function ProductDetail() {
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
   const { product, error, loading } = useSelector(
     (state) => state.productDetail
   );
@@ -25,6 +26,18 @@ export default function ProductDetail() {
     value: product.ratings,
     size: window.innerWidth < 600 ? 20 : 25,
     isHalf: true,
+  };
+  const decreaseQuantity = () => {
+    if (1 >= quantity) return;
+    setQuantity(quantity - 1);
+  };
+  const increaseQuantity = () => {
+    if (product.stock <= quantity) return;
+    setQuantity(quantity + 1);
+  };
+  const addToCartHandler = () => {
+    addItemsToCart(dispatch, id, quantity);
+    alert.success("Item added to cart");
   };
 
   useEffect(() => {
@@ -41,6 +54,8 @@ export default function ProductDetail() {
   if (loading) {
     return <Loader />;
   }
+
+  const submitReviewToggle = () => {};
 
   return (
     <Fragment>
@@ -75,26 +90,13 @@ export default function ProductDetail() {
             <h1>{`Rs.${product.price}`}</h1>
             <div className="detailsBlock-3-1">
               <div className="detailsBlock-3-1-1">
-                <button
-                // onClick={decreaseQuantity}
-                >
-                  -
-                </button>
-                <input
-                  readOnly
-                  type="number"
-                  // value={quantity}
-                  value={"1"}
-                />
-                <button
-                // onClick={increaseQuantity}
-                >
-                  +
-                </button>
+                <button onClick={decreaseQuantity}>-</button>
+                <input readOnly type="number" value={quantity} />
+                <button onClick={increaseQuantity}>+</button>
               </div>
               <button
                 disabled={product.Stock < 1 ? true : false}
-                // onClick={addToCartHandler}
+                onClick={addToCartHandler}
               >
                 Add to Cart
               </button>
@@ -112,10 +114,7 @@ export default function ProductDetail() {
             Description : <p>{product.description}</p>
           </div>
 
-          <button
-            // onClick={submitReviewToggle}
-            className="submitReview"
-          >
+          <button onClick={submitReviewToggle} className="submitReview">
             Submit Review
           </button>
         </div>

@@ -38,6 +38,7 @@ import {
   resetPasswordSuccess,
   resetPasswordFailed,
 } from "../forgotPassSlice";
+import { addToCartItem, removeToCartItem } from "../cartSlice";
 
 export const getProduct = async (
   dispatch,
@@ -165,4 +166,23 @@ export const resetPassword = async (dispatch, token, passwords) => {
   } catch (error) {
     dispatch(resetPasswordFailed(error.response.data.error));
   }
+};
+
+export const addItemsToCart = async (dispatch, id, quantity) => {
+  const { data } = await publicRequest.get(`/product/${id}`);
+
+  dispatch(
+    addToCartItem({
+      product: data.product._id,
+      name: data.product.name,
+      price: data.product.price,
+      image: data.product.images[0].url,
+      stock: data.product.stock,
+      quantity,
+    })
+  );
+};
+
+export const removeItemsFromCart = async (dispatch, id) => {
+  dispatch(removeToCartItem(id));
 };

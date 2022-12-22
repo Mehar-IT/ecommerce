@@ -9,7 +9,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { logout } from "../../../redux/utils/apiCalls";
 
@@ -18,19 +18,20 @@ export default function UserOption({ user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
+  const { cartItems } = useSelector((state) => state.cart);
 
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: orders },
     { icon: <PersonIcon />, name: "Profile", func: account },
-    // {
-    //   icon: (
-    //     <AddShoppingCartIcon
-    //       style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
-    //     />
-    //   ),
-    //   name: `Cart(${cartItems.length})`,
-    //   func: cart,
-    // },
+    {
+      icon: (
+        <AddShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart(${cartItems.length})`,
+      func: cart,
+    },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
 
@@ -52,11 +53,12 @@ export default function UserOption({ user }) {
   function account() {
     navigate("/account");
   }
-  //   function cart() {
-  //     navigate("/cart");
-  //   }
+  function cart() {
+    navigate("/cart");
+  }
   function logoutUser() {
     logout(dispatch);
+    localStorage.clear();
     alert.success("Logout Successfully");
   }
 
