@@ -1,4 +1,8 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -23,7 +27,7 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   products: productReducer,
   productDetail: productDetailReducer,
   user: userReducer,
@@ -31,6 +35,14 @@ const rootReducer = combineReducers({
   forgotPassword: forgotPassReducer,
   cart: cartReducer,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === "RESET_STATE") {
+    return appReducer(undefined, action);
+  }
+  return appReducer(state, action);
+};
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -44,3 +56,11 @@ export const store = configureStore({
 });
 
 export let persistor = persistStore(store);
+
+export const resetAllData = createAsyncThunk(
+  "reset",
+  function (_payload, thunkAPI) {
+    thunkAPI.dispatch({ type: "RESET_STATE" });
+    console.log("logged out and reset all data");
+  }
+);

@@ -10,7 +10,7 @@ import Products from "./components/Product/Products";
 import Search from "./components/Product/Search";
 import LoginSignUp from "./components/User/LoginSignUp";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "./redux/utils/apiCalls";
+// import { loadUser } from "./redux/utils/apiCalls";
 import UserOption from "./components/layout/Header/UserOption";
 import Profile from "./components/User/Profile";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
@@ -19,6 +19,7 @@ import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
 import Cart from "./components/Cart/Cart";
+import Shipping from "./components/Cart/Shipping";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function App() {
         families: ["Roboto", "Droid", "Chilanks"],
       },
     });
-    loadUser(dispatch);
+    // loadUser(dispatch);
   }, []);
 
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route extact path="/account" element={<Profile />} />
           <Route extact path="/me/update" element={<UpdateProfile />} />
           <Route extact path="/password/update" element={<UpdatePassword />} />
+          <Route extact path="/login/shipping" element={<Shipping />} />
         </Route>
         <Route
           extact

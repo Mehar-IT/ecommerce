@@ -66,6 +66,7 @@ export default function LoginSignUp() {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+  const redirect = location.search ? location.search.split("=")[1] : "/account";
 
   useEffect(() => {
     if (error) {
@@ -73,7 +74,7 @@ export default function LoginSignUp() {
       dispatch(reset());
     }
     if (isAuthenticated) {
-      navigate("/account");
+      navigate(redirect);
     }
   }, [error, alert, dispatch, isAuthenticated, navigate]);
 
