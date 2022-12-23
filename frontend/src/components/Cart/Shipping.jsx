@@ -11,7 +11,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import { Country, State } from "country-state-city";
 import { useAlert } from "react-alert";
-// import CheckoutSteps from "../Cart/CheckoutSteps";
+import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
 
 const Shipping = () => {
@@ -34,9 +34,16 @@ const Shipping = () => {
       alert.error("Phone Number should be 10 digits Long");
       return;
     }
-    dispatch(
-      saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
-    );
+
+    saveShippingInfo(dispatch, {
+      address,
+      city,
+      state,
+      country,
+      pinCode,
+      phoneNo,
+    });
+
     navigate("/order/confirm");
   };
 
@@ -44,7 +51,7 @@ const Shipping = () => {
     <Fragment>
       <MetaData title="Shipping Details" />
 
-      {/* <CheckoutSteps activeStep={0} /> */}
+      <CheckoutSteps activeStep={0} />
 
       <div className="shippingContainer">
         <div className="shippingBox">
