@@ -19,7 +19,8 @@ import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
 import Cart from "./components/Cart/Cart";
 import Shipping from "./components/Cart/Shipping";
-import ConfirmOrder from "./components/Cart/ConfirmOrder.jsx";
+import ConfirmOrder from "./components/Cart/ConfirmOrder";
+import OrderSuccess from "./components/Cart/OrderSuccess";
 import axios from "axios";
 import Payment from "./components/Cart/Payment";
 import { Elements } from "@stripe/react-stripe-js";
@@ -60,6 +61,7 @@ function App() {
           <Route extact path="/password/update" element={<UpdatePassword />} />
           <Route extact path="/login/shipping" element={<Shipping />} />
           <Route extact path="/order/confirm" element={<ConfirmOrder />} />
+          <Route extact path="/success" element={<OrderSuccess />} />
           {stripeApiKey && (
             <Route
               exact

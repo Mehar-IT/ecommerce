@@ -39,6 +39,11 @@ import {
   resetPasswordFailed,
 } from "../forgotPassSlice";
 import { addToCartItem, removeToCartItem, saveShipingInfo } from "../cartSlice";
+import {
+  createOrderRequest,
+  createOrderSucess,
+  createOrderFail,
+} from "../orderSlice";
 
 export const getProduct = async (
   dispatch,
@@ -190,4 +195,15 @@ export const removeItemsFromCart = async (dispatch, id) => {
 
 export const saveShippingInfo = async (dispatch, data) => {
   dispatch(saveShipingInfo(data));
+};
+
+export const createOrder = async (dispatch, order) => {
+  try {
+    dispatch(createOrderRequest());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.post(`/order/new/`, order, config);
+    dispatch(createOrderSucess(data));
+  } catch (error) {
+    dispatch(createOrderFail(error.response.data.error));
+  }
 };

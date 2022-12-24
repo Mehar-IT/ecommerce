@@ -18,7 +18,8 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import EventIcon from "@mui/icons-material/Event";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useNavigate } from "react-router-dom";
-// import { createOrder, clearErrors } from "../../actions/orderAction";
+import { createOrder } from "../../redux/utils/apiCalls";
+import clearErrors from "../../redux/orderSlice";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -32,7 +33,7 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  //   const { error } = useSelector((state) => state.newOrder);
+  const { error } = useSelector((state) => state.order);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
