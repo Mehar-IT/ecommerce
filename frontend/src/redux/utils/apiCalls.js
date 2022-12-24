@@ -54,6 +54,7 @@ import {
   orderDetailSucess,
   orderDetailFail,
 } from "../orderDetailSlice";
+import { reviewRequest, reviewSucess, reviewFail } from "../reviewSlice";
 
 export const getProduct = async (
   dispatch,
@@ -237,5 +238,16 @@ export const orderDetail = async (dispatch, id) => {
     dispatch(orderDetailSucess(data.order));
   } catch (error) {
     dispatch(orderDetailFail(error.response.data.error));
+  }
+};
+
+export const review = async (dispatch, reviewData) => {
+  try {
+    dispatch(reviewRequest());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.put(`/review`, reviewData, config);
+    dispatch(reviewSucess(data.success));
+  } catch (error) {
+    dispatch(reviewFail(error.response.data.error));
   }
 };

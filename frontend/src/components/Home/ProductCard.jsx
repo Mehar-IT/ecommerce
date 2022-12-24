@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
         <ReactStars {...options} />{" "}
         <span className="productCardSpan">
           {" "}
-          ({product.numOfReviews} Rfeviews)
+          ({product.numOfReviews} Reviews)
         </span>
       </div>
       <span>{`Rs:${product.price}`}</span>
