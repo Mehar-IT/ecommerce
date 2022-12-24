@@ -44,6 +44,11 @@ import {
   createOrderSucess,
   createOrderFail,
 } from "../orderSlice";
+import {
+  myOrdersRequest,
+  myOrdersSucess,
+  myOrdersFail,
+} from "../myOrdersSlice";
 
 export const getProduct = async (
   dispatch,
@@ -205,5 +210,16 @@ export const createOrder = async (dispatch, order) => {
     dispatch(createOrderSucess(data));
   } catch (error) {
     dispatch(createOrderFail(error.response.data.error));
+  }
+};
+
+export const myOrders = async (dispatch) => {
+  try {
+    dispatch(myOrdersRequest());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.get(`/orders/me`, config);
+    dispatch(myOrdersSucess(data.orders));
+  } catch (error) {
+    dispatch(myOrdersFail(error.response.data.error));
   }
 };

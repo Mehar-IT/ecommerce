@@ -21,10 +21,12 @@ import Cart from "./components/Cart/Cart";
 import Shipping from "./components/Cart/Shipping";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import OrderSuccess from "./components/Cart/OrderSuccess";
+import Myorders from "./components/Order/Myorders";
 import axios from "axios";
 import Payment from "./components/Cart/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Loader from "./components/layout/Loader/Loader";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -46,7 +48,7 @@ function App() {
       },
     });
     getStripeApiKey();
-  }, []);
+  }, [stripeApiKey]);
 
   return (
     <Router>
@@ -62,17 +64,21 @@ function App() {
           <Route extact path="/login/shipping" element={<Shipping />} />
           <Route extact path="/order/confirm" element={<ConfirmOrder />} />
           <Route extact path="/success" element={<OrderSuccess />} />
-          {stripeApiKey && (
-            <Route
-              exact
-              path="/process/payment"
-              element={
+          <Route extact path="/orders" element={<Myorders />} />
+          <Route
+            exact
+            path="/process/payment"
+            element={
+              stripeApiKey ? (
                 <Elements stripe={loadStripe(stripeApiKey)}>
                   <Payment />
                 </Elements>
-              }
-            />
-          )}
+              ) : (
+                <Loader />
+              )
+            }
+          />
+          )
         </Route>
 
         <Route

@@ -30,7 +30,7 @@ const Shipping = () => {
   const shippingSubmit = (e) => {
     e.preventDefault();
 
-    if (phoneNo.length < 10 || phoneNo.length > 10) {
+    if (phoneNo.length < 10) {
       alert.error("Phone Number should be 10 digits Long");
       return;
     }
