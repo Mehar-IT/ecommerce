@@ -48,7 +48,7 @@ function App() {
         families: ["Roboto", "Droid", "Chilanks"],
       },
     });
-    getStripeApiKey();
+    isAuthenticated && getStripeApiKey();
   }, [stripeApiKey]);
 
   return (
