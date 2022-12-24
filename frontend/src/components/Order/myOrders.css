@@ -78,14 +78,3 @@
     font: 500 5vw "Roboto" !important;
   }
 }
-.green {
-  background-color: rgb(115, 197, 115);
-}
-.red {
-  background-color: rgb(236, 87, 87);
-}
-.badge {
-  color: white;
-  padding: 5px 10px;
-  border-radius: 10px;
-}

@@ -27,16 +27,11 @@ const MyOrders = () => {
       headerName: "Status",
       minWidth: 150,
       flex: 0.5,
-      //   cellClassName: (params) => {
-      //     return params.getValue(params.id, "status") === "delivered"
-      //       ? "greenColor !important"
-      //       : "redColor !important";
-      //   },
       renderCell: ({ row }) => {
         return (
           <p
             className={` badge ${
-              row.status === "delivered" ? "green" : "red"
+              row.status === "delivered" ? "greenColor" : "redColor"
             } `}
           >
             {row.status}
@@ -67,9 +62,9 @@ const MyOrders = () => {
       minWidth: 150,
       type: "number",
       sortable: false,
-      renderCell: (params) => {
+      renderCell: ({ row }) => {
         return (
-          <Link to={`/order/${params.getValue(params.id, "id")}`}>
+          <Link to={`/order/${row.id}`}>
             <LaunchIcon />
           </Link>
         );
@@ -109,6 +104,7 @@ const MyOrders = () => {
             rows={rows}
             columns={columns}
             pageSize={10}
+            rowsPerPageOptions={[10]}
             disableSelectionOnClick
             className="myOrdersTable"
             autoHeight

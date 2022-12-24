@@ -12,12 +12,21 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
-  /* appearance: textfield; */
+  appearance: textfield;
 }
 
 .greenColor {
-  color: green !important;
+  background-color: rgb(115, 197, 115) !important;
 }
 .redColor {
-  color: red !important;
+  background-color: rgb(236, 87, 87) !important;
+}
+.badge {
+  color: white !important;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+button:disabled {
+  cursor: not-allowed !important;
+  pointer-events: all !important;
 }

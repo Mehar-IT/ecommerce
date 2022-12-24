@@ -21,6 +21,7 @@ import Cart from "./components/Cart/Cart";
 import Shipping from "./components/Cart/Shipping";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import OrderSuccess from "./components/Cart/OrderSuccess";
+import OrderDetail from "./components/Order/OrderDetail";
 import Myorders from "./components/Order/Myorders";
 import axios from "axios";
 import Payment from "./components/Cart/Payment";
@@ -65,6 +66,7 @@ function App() {
           <Route extact path="/order/confirm" element={<ConfirmOrder />} />
           <Route extact path="/success" element={<OrderSuccess />} />
           <Route extact path="/orders" element={<Myorders />} />
+          <Route extact path="/order/:id" element={<OrderDetail />} />
           <Route
             exact
             path="/process/payment"

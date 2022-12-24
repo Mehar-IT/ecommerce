@@ -22,6 +22,7 @@ import forgotPassReducer from "./forgotPassSlice";
 import cartReducer from "./cartSlice";
 import orderReducer from "./orderSlice";
 import myOrdersReducer from "./myOrdersSlice";
+import orderDetailReducer from "./orderDetailSlice";
 
 const persistConfig = {
   key: "root",
@@ -38,6 +39,7 @@ const appReducer = combineReducers({
   cart: cartReducer,
   order: orderReducer,
   myOrders: myOrdersReducer,
+  orderDetail: orderDetailReducer,
 });
 
 const rootReducer = (state, action) => {
