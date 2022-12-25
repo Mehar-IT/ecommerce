@@ -1,14 +1,27 @@
-import { publicRequest, userRequest } from "./requestMethod";
+import { publicRequest } from "./requestMethod";
 import {
   getProductStart,
   getProductSuccess,
   getProductFailed,
+  getAdminProductStart,
+  getAdminProductSuccess,
+  getAdminProductFailed,
 } from "../productSlice";
 import {
   getProductDetailStart,
   getProductDetailSuccess,
   getProductDetailFailed,
 } from "../productDetailSlice";
+import {
+  newProductStart,
+  newProductSuccess,
+  newProductFailed,
+} from "../newProductSlice";
+import {
+  deleteProductStart,
+  deleteProductSuccess,
+  deleteProductFailed,
+} from "../deleteProduct";
 import {
   loginRequestStart,
   loginRequestSuccess,
@@ -249,5 +262,42 @@ export const review = async (dispatch, reviewData) => {
     dispatch(reviewSucess(data.success));
   } catch (error) {
     dispatch(reviewFail(error.response.data.error));
+  }
+};
+
+export const getAllProductforAdmin = async (dispatch) => {
+  try {
+    dispatch(getAdminProductStart());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.get(`/admin/products`, config);
+    dispatch(getAdminProductSuccess(data.products));
+  } catch (error) {
+    dispatch(getAdminProductFailed(error.response.data.error));
+  }
+};
+
+export const createProduct = async (dispatch, productData) => {
+  try {
+    dispatch(newProductStart());
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.post(
+      `/admin/product/new`,
+      productData,
+      config
+    );
+    dispatch(newProductSuccess(data));
+  } catch (error) {
+    dispatch(newProductFailed(error.response.data.error));
+  }
+};
+
+export const deleteProduct = async (dispatch, id) => {
+  try {
+    dispatch(deleteProductStart());
+
+    const { data } = await publicRequest.delete(`/admin/product/${id}`);
+    dispatch(deleteProductSuccess(data.success));
+  } catch (error) {
+    dispatch(deleteProductFailed(error.response.data.error));
   }
 };

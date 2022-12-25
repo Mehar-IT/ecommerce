@@ -31,7 +31,9 @@ import Payment from "./components/Cart/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Loader from "./components/layout/Loader/Loader";
-import Dashboard from "./components/admin/Dashboard";
+import Dashboard from "./components/Admin/Dashboard";
+import ProducrList from "./components/Admin/ProductList";
+import NewProduct from "./components/Admin/NewProduct";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -87,6 +89,8 @@ function App() {
         </Route>
         <Route element={<AdminProtectedRoute />}>
           <Route extact path="/admin/dashboard" element={<Dashboard />} />
+          <Route extact path="/admin/products" element={<ProducrList />} />
+          <Route extact path="/admin/product" element={<NewProduct />} />
         </Route>
 
         <Route

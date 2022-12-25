@@ -5,7 +5,8 @@
   padding: 4rem 0;
 }
 
-.sidebar > a:first-child {
+.sidebar > a:first-child,
+.treeView {
   padding: 0;
 }
 .sidebar > a > img {
@@ -16,14 +17,16 @@
 .sidebar > a > img:hover {
   filter: drop-shadow(0 0 10px tomato);
 }
-.sidebar a {
+.sidebar a,
+.treeView {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.493);
   font: 200 1rem "Roboto";
   padding: 2rem;
   transition: all 0.5s;
 }
-.sidebar a:hover {
+.sidebar a:hover,
+.treeView:hover {
   color: tomato;
   transform: scale(1.1);
 }

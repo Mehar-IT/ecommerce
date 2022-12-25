@@ -20,9 +20,7 @@ const myOrdersSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    clearError: (state, action) => {
-      state.error = action.payload;
-    },
+    clearError: () => initialState,
   },
 });
 

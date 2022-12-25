@@ -6,7 +6,7 @@ import { TreeView, TreeItem } from "@material-ui/lab";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import AddIcon from "@mui/icons-material/Add";
-import ImportExportIcon from "@mui/icons-material/ImportExport";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
@@ -23,10 +23,10 @@ const Sidebar = () => {
           <DashboardIcon /> Dashboard
         </p>
       </Link>
-      <Link>
+      <span className="treeView">
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ImportExportIcon />}
+          defaultExpandIcon={<ChevronRightIcon />}
         >
           <TreeItem nodeId="1" label="Products">
             <Link to="/admin/products">
@@ -38,7 +38,8 @@ const Sidebar = () => {
             </Link>
           </TreeItem>
         </TreeView>
-      </Link>
+      </span>
+
       <Link to="/admin/orders">
         <p>
           <ListAltIcon />

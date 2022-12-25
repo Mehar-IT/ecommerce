@@ -19,9 +19,7 @@ const productDetailSlice = createSlice({
     getProductDetailFailed: (state, action) => {
       state.error = action.payload;
     },
-    reset: (state) => {
-      state.error = null;
-    },
+    reset: () => initialState,
   },
 });
 

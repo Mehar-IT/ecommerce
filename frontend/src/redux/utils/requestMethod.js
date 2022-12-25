@@ -5,10 +5,3 @@ export const publicRequest = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
-
-export const userRequest = () => {
-  return axios.create({
-    baseURL: BASE_URL,
-    withCredentials: true,
-  });
-};

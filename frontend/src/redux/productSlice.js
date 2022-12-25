@@ -25,11 +25,31 @@ const productSlice = createSlice({
     },
     getProductFailed: (state, action) => {
       state.error = action.payload;
+      state.loading = false;
+    },
+
+    getAdminProductStart: (state) => {
+      state.loading = true;
+    },
+    getAdminProductSuccess: (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+    },
+    getAdminProductFailed: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
     },
     reset: () => initialState,
   },
 });
 
-export const { getProductStart, getProductSuccess, getProductFailed, reset } =
-  productSlice.actions;
+export const {
+  getProductStart,
+  getProductSuccess,
+  getProductFailed,
+  getAdminProductStart,
+  getAdminProductSuccess,
+  getAdminProductFailed,
+  reset,
+} = productSlice.actions;
 export default productSlice.reducer;
