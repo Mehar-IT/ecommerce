@@ -60,7 +60,13 @@ export default function UserOption({ user }) {
   async function logoutUser() {
     logout(dispatch);
     dispatch(resetAllData());
-    alert.success("Logout Successfully");
+    alert.success("Logout Successfully", {
+      onOpen: () => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      },
+    });
   }
 
   return (
