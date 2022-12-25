@@ -39,7 +39,7 @@ export default function UserOption({ user }) {
   if (user.role === "admin") {
     options.unshift({
       icon: <DashboardIcon />,
-      name: "Dashboard",
+      name: "Admin Dashboard",
       func: dashboard,
     });
   }

@@ -12,7 +12,10 @@ import LoginSignUp from "./components/User/LoginSignUp";
 import { useSelector } from "react-redux";
 import UserOption from "./components/layout/Header/UserOption";
 import Profile from "./components/User/Profile";
-import ProtectedRoute from "./components/Route/ProtectedRoute";
+import {
+  AdminProtectedRoute,
+  UserProtectedRoute,
+} from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
@@ -28,6 +31,7 @@ import Payment from "./components/Cart/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Loader from "./components/layout/Loader/Loader";
+import Dashboard from "./components/admin/Dashboard";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -58,7 +62,7 @@ function App() {
 
       <Routes>
         <Route extact path="/" element={<Home />} />
-        <Route element={<ProtectedRoute />}>
+        <Route element={<UserProtectedRoute />}>
           <Route extact path="/account" element={<Profile />} />
           <Route extact path="/me/update" element={<UpdateProfile />} />
           <Route extact path="/password/update" element={<UpdatePassword />} />
@@ -80,7 +84,9 @@ function App() {
               )
             }
           />
-          )
+        </Route>
+        <Route element={<AdminProtectedRoute />}>
+          <Route extact path="/admin/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route
