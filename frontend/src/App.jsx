@@ -30,7 +30,6 @@ import axios from "axios";
 import Payment from "./components/Cart/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import Loader from "./components/layout/Loader/Loader";
 import Dashboard from "./components/Admin/Dashboard";
 import ProducrList from "./components/Admin/ProductList";
 import NewProduct from "./components/Admin/NewProduct";
@@ -38,6 +37,7 @@ import UpdateProduct from "./components/Admin/UpdateProduct";
 import OrderList from "./components/Admin/OrderList";
 import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
+import UpdateUser from "./components/Admin/UpdateUser";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -97,6 +97,7 @@ function App() {
           <Route extact path="/admin/orders" element={<OrderList />} />
           <Route extact path="/admin/order/:id" element={<ProcessOrder />} />
           <Route extact path="/admin/users" element={<UsersList />} />
+          <Route extact path="/admin/user/:id" element={<UpdateUser />} />
         </Route>
 
         <Route
