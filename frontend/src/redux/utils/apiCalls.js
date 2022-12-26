@@ -23,6 +23,11 @@ import {
   deleteProductFailed,
 } from "../deleteProduct";
 import {
+  updateProductStart,
+  updateProductSuccess,
+  updateProductFailed,
+} from "../updateProductSlice";
+import {
   loginRequestStart,
   loginRequestSuccess,
   loginRequestFailed,
@@ -143,8 +148,8 @@ export const logout = async (dispatch) => {
 };
 
 export const updateProfile = async (dispatch, userData) => {
+  dispatch(updateProfileStart());
   try {
-    dispatch(updateProfileStart());
     const config = { headers: { "Content-Type": "multipart/form-data" } };
     const { data } = await publicRequest.put(`/me/update`, userData, config);
     dispatch(updateProfileSuccess(data.success));
@@ -154,8 +159,8 @@ export const updateProfile = async (dispatch, userData) => {
 };
 
 export const updatePassword = async (dispatch, passwords) => {
+  dispatch(updatePasswordStart());
   try {
-    dispatch(updatePasswordStart());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.put(
       `/password/update`,
@@ -169,8 +174,8 @@ export const updatePassword = async (dispatch, passwords) => {
 };
 
 export const forgotPassword = async (dispatch, email) => {
+  dispatch(forgotPasswordStart());
   try {
-    dispatch(forgotPasswordStart());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.post(
       `/password/forgot`,
@@ -184,8 +189,8 @@ export const forgotPassword = async (dispatch, email) => {
 };
 
 export const resetPassword = async (dispatch, token, passwords) => {
+  dispatch(resetPasswordStart());
   try {
-    dispatch(resetPasswordStart());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.put(
       `/password/reset/${token}`,
@@ -222,8 +227,8 @@ export const saveShippingInfo = async (dispatch, data) => {
 };
 
 export const createOrder = async (dispatch, order) => {
+  dispatch(createOrderRequest());
   try {
-    dispatch(createOrderRequest());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.post(`/order/new/`, order, config);
     dispatch(createOrderSucess(data));
@@ -233,8 +238,8 @@ export const createOrder = async (dispatch, order) => {
 };
 
 export const myOrders = async (dispatch) => {
+  dispatch(myOrdersRequest());
   try {
-    dispatch(myOrdersRequest());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.get(`/orders/me`, config);
     dispatch(myOrdersSucess(data.orders));
@@ -244,8 +249,8 @@ export const myOrders = async (dispatch) => {
 };
 
 export const orderDetail = async (dispatch, id) => {
+  dispatch(orderDetailRequest());
   try {
-    dispatch(orderDetailRequest());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.get(`/order/${id}`, config);
     dispatch(orderDetailSucess(data.order));
@@ -255,8 +260,8 @@ export const orderDetail = async (dispatch, id) => {
 };
 
 export const review = async (dispatch, reviewData) => {
+  dispatch(reviewRequest());
   try {
-    dispatch(reviewRequest());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.put(`/review`, reviewData, config);
     dispatch(reviewSucess(data.success));
@@ -266,8 +271,8 @@ export const review = async (dispatch, reviewData) => {
 };
 
 export const getAllProductforAdmin = async (dispatch) => {
+  dispatch(getAdminProductStart());
   try {
-    dispatch(getAdminProductStart());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.get(`/admin/products`, config);
     dispatch(getAdminProductSuccess(data.products));
@@ -277,8 +282,8 @@ export const getAllProductforAdmin = async (dispatch) => {
 };
 
 export const createProduct = async (dispatch, productData) => {
+  dispatch(newProductStart());
   try {
-    dispatch(newProductStart());
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await publicRequest.post(
       `/admin/product/new`,
@@ -292,12 +297,26 @@ export const createProduct = async (dispatch, productData) => {
 };
 
 export const deleteProduct = async (dispatch, id) => {
+  dispatch(deleteProductStart());
   try {
-    dispatch(deleteProductStart());
-
     const { data } = await publicRequest.delete(`/admin/product/${id}`);
     dispatch(deleteProductSuccess(data.success));
   } catch (error) {
     dispatch(deleteProductFailed(error.response.data.error));
+  }
+};
+
+export const updateProduct = async (dispatch, id, productData) => {
+  dispatch(updateProductStart());
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.put(
+      `/admin/product/${id}`,
+      productData,
+      config
+    );
+    dispatch(updateProductSuccess(data.success));
+  } catch (error) {
+    dispatch(updateProductFailed(error.response.data.error));
   }
 };
