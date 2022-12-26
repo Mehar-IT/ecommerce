@@ -20,6 +20,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/utils/apiCalls";
 import { clearError } from "../../redux/orderSlice";
+import Loader from "../layout/Loader/Loader";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -36,16 +37,16 @@ const Payment = () => {
   const { error } = useSelector((state) => state.order);
 
   const paymentData = {
-    amount: Math.round(orderInfo.totalPrice * 100),
+    amount: Math.round(orderInfo && orderInfo.totalPrice * 100),
   };
 
   const order = {
     shippingInfo,
     orderItems: cartItems,
-    itemsPrice: orderInfo.subtotal,
-    taxPrice: orderInfo.tax,
-    shippingPrice: orderInfo.shippingCharges,
-    totalPrice: orderInfo.totalPrice,
+    itemsPrice: orderInfo && orderInfo.subtotal,
+    taxPrice: orderInfo && orderInfo.tax,
+    shippingPrice: orderInfo && orderInfo.shippingCharges,
+    totalPrice: orderInfo && orderInfo.totalPrice,
   };
 
   const submitHandler = async (e) => {
