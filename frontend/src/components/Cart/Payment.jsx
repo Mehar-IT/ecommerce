@@ -19,7 +19,7 @@ import EventIcon from "@mui/icons-material/Event";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/utils/apiCalls";
-import clearErrors from "../../redux/orderSlice";
+import { clearError } from "../../redux/orderSlice";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -113,7 +113,7 @@ const Payment = () => {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
+      dispatch(clearError());
     }
   }, [dispatch, error, alert]);
 

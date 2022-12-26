@@ -16,10 +16,16 @@ input[type="number"] {
 }
 
 .greenColor {
+  /* color: green !important; */
   background-color: rgb(115, 197, 115) !important;
 }
 .redColor {
   background-color: rgb(236, 87, 87) !important;
+  /* color: red !important; */
+}
+.orangeColor {
+  background-color: rgb(196, 143, 46) !important;
+  /* color: orange !important; */
 }
 .badge {
   color: white !important;

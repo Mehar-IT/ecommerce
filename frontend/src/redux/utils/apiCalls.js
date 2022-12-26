@@ -63,6 +63,21 @@ import {
   createOrderFail,
 } from "../orderSlice";
 import {
+  orderListStart,
+  orderListSuccess,
+  orderListFailed,
+} from "../adminSlice/orderListSlice";
+import {
+  updateOrderStart,
+  updateOrderSuccess,
+  updateOrderFailed,
+} from "../adminSlice/updateOrderSlice";
+import {
+  deleteOrderStart,
+  deleteOrderSuccess,
+  deleteOrderFailed,
+} from "../adminSlice/deleteOrderSlice";
+import {
   myOrdersRequest,
   myOrdersSucess,
   myOrdersFail,
@@ -318,5 +333,40 @@ export const updateProduct = async (dispatch, id, productData) => {
     dispatch(updateProductSuccess(data.success));
   } catch (error) {
     dispatch(updateProductFailed(error.response.data.error));
+  }
+};
+
+export const getAllOrders = async (dispatch) => {
+  dispatch(orderListStart());
+  try {
+    const { data } = await publicRequest.get(`/admin/orders`);
+    dispatch(orderListSuccess(data.orders));
+  } catch (error) {
+    dispatch(orderListFailed(error.response.data.error));
+  }
+};
+
+export const updateOrder = async (dispatch, id, order) => {
+  dispatch(updateOrderStart());
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.put(
+      `/admin/order/${id}`,
+      order,
+      config
+    );
+    dispatch(updateOrderSuccess(data.success));
+  } catch (error) {
+    dispatch(updateOrderFailed(error.response.data.error));
+  }
+};
+
+export const deleteOrder = async (dispatch, id) => {
+  dispatch(deleteOrderStart());
+  try {
+    const { data } = await publicRequest.delete(`/admin/order/${id}`);
+    dispatch(deleteOrderSuccess(data.success));
+  } catch (error) {
+    dispatch(deleteOrderFailed(error.response.data.error));
   }
 };

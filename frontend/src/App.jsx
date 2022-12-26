@@ -35,6 +35,8 @@ import Dashboard from "./components/Admin/Dashboard";
 import ProducrList from "./components/Admin/ProductList";
 import NewProduct from "./components/Admin/NewProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
+import OrderList from "./components/Admin/OrderList";
+import ProcessOrder from "./components/Admin/ProcessOrder";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -93,6 +95,8 @@ function App() {
           <Route extact path="/admin/products" element={<ProducrList />} />
           <Route extact path="/admin/product" element={<NewProduct />} />
           <Route extact path="/admin/product/:id" element={<UpdateProduct />} />
+          <Route extact path="/admin/orders" element={<OrderList />} />
+          <Route extact path="/admin/order/:id" element={<ProcessOrder />} />
         </Route>
 
         <Route

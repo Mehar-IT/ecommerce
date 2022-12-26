@@ -19,6 +19,7 @@
 }
 
 .productListTable {
+  padding: 15px;
   background-color: white;
   border: none !important;
 }
