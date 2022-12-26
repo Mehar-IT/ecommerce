@@ -39,6 +39,8 @@ import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
+import About from "./components/layout/About/About";
+import Contact from "./components/layout/Contact/Contact";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -78,6 +80,8 @@ function App() {
           <Route extact path="/success" element={<OrderSuccess />} />
           <Route extact path="/orders" element={<Myorders />} />
           <Route extact path="/order/:id" element={<OrderDetail />} />
+          <Route extact path="/about" element={<About />} />
+          <Route extact path="/contact" element={<Contact />} />
           <Route
             exact
             path="/process/payment"
