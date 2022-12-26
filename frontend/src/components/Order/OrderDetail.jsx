@@ -46,7 +46,7 @@ const OrderDetail = () => {
                 <div>
                   <p>Phone:</p>
                   <span>
-                    {order.shippingInfo && order.shippingInfo.phoneNo}
+                    {order.shippingInfo && order.shippingInfo.phoneNumber}
                   </span>
                 </div>
                 <div>

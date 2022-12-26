@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
@@ -28,7 +28,7 @@ const Payment = () => {
   const alert = useAlert();
   const stripe = useStripe();
   const elements = useElements();
-  const payBtn = useRef(null);
+  const [payBtn, setPayBtn] = useState(false);
   const navigate = useNavigate();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
@@ -50,7 +50,7 @@ const Payment = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    payBtn.current.disabled = true;
+    setPayBtn(true);
 
     try {
       const config = {
@@ -87,7 +87,7 @@ const Payment = () => {
       });
 
       if (result.error) {
-        payBtn.current.disabled = false;
+        setPayBtn(false);
 
         alert.error(result.error.message);
       } else {
@@ -105,7 +105,7 @@ const Payment = () => {
         }
       }
     } catch (error) {
-      payBtn.current.disabled = false;
+      setPayBtn(false);
       alert.error(error.response.data.error);
     }
   };
@@ -140,7 +140,7 @@ const Payment = () => {
           <input
             type="submit"
             value={`Pay - ₹${orderInfo && orderInfo.totalPrice}`}
-            ref={payBtn}
+            disabled={payBtn}
             className="paymentFormBtn"
           />
         </form>

@@ -58,7 +58,7 @@ function App() {
       },
     });
     isAuthenticated && getStripeApiKey();
-  }, [stripeApiKey]);
+  }, [stripeApiKey, isAuthenticated]);
 
   return (
     <Router>
@@ -80,12 +80,10 @@ function App() {
             exact
             path="/process/payment"
             element={
-              stripeApiKey ? (
+              stripeApiKey && (
                 <Elements stripe={loadStripe(stripeApiKey)}>
                   <Payment />
                 </Elements>
-              ) : (
-                <Loader />
               )
             }
           />
