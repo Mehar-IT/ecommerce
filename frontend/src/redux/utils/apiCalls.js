@@ -78,6 +78,26 @@ import {
   deleteOrderFailed,
 } from "../adminSlice/deleteOrderSlice";
 import {
+  allUserStart,
+  allUserSuccess,
+  allUserFailed,
+} from "../adminSlice/allUserSlice";
+import {
+  userDetailStart,
+  userDetailSuccess,
+  userDetailFailed,
+} from "../adminSlice/userDetailSilce";
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailed,
+} from "../adminSlice/updateUserSlice";
+import {
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailed,
+} from "../adminSlice/deleteUserSlice";
+import {
   myOrdersRequest,
   myOrdersSucess,
   myOrdersFail,
@@ -368,5 +388,50 @@ export const deleteOrder = async (dispatch, id) => {
     dispatch(deleteOrderSuccess(data.success));
   } catch (error) {
     dispatch(deleteOrderFailed(error.response.data.error));
+  }
+};
+
+export const getAllUsers = async (dispatch) => {
+  dispatch(allUserStart());
+  try {
+    const { data } = await publicRequest.get(`/admin/users`);
+    dispatch(allUserSuccess(data.users));
+  } catch (error) {
+    dispatch(allUserFailed(error.response.data.error));
+  }
+};
+
+export const getUserDetails = async (dispatch, id) => {
+  dispatch(userDetailStart());
+  try {
+    const { data } = await publicRequest.get(`/admin/users/${id}`);
+    dispatch(userDetailSuccess(data.user));
+  } catch (error) {
+    dispatch(userDetailFailed(error.response.data.error));
+  }
+};
+
+export const updateUser = async (dispatch, id, userData) => {
+  dispatch(updateUserStart());
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await publicRequest.put(
+      `/admin/users/${id}`,
+      userData,
+      config
+    );
+    dispatch(updateUserSuccess(data.success));
+  } catch (error) {
+    dispatch(updateUserFailed(error.response.data.error));
+  }
+};
+
+export const deleteUser = async (dispatch, id) => {
+  dispatch(deleteUserStart());
+  try {
+    const { data } = await publicRequest.delete(`/admin/users/${id}`);
+    dispatch(deleteUserSuccess(data));
+  } catch (error) {
+    dispatch(deleteUserFailed(error.response.data.error));
   }
 };

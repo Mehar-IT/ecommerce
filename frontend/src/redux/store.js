@@ -30,6 +30,10 @@ import updateProfileSlice from "./updateProductSlice";
 import orderListReducer from "./adminSlice/orderListSlice";
 import updateOrderReducer from "./adminSlice/updateOrderSlice";
 import deleteOrderReducer from "./adminSlice/deleteOrderSlice";
+import allUserReducer from "./adminSlice/allUserSlice";
+import deleteUserReducer from "./adminSlice/deleteUserSlice";
+import updateUserReducer from "./adminSlice/updateUserSlice";
+import userDetailReducer from "./adminSlice/userDetailSilce";
 
 const persistConfig = {
   key: "root",
@@ -54,6 +58,10 @@ const appReducer = combineReducers({
   orderList: orderListReducer,
   updateOrder: updateOrderReducer,
   deleteOrder: deleteOrderReducer,
+  allUsers: allUserReducer,
+  updateUser: updateUserReducer,
+  deleteUser: deleteUserReducer,
+  userDetail: userDetailReducer,
 });
 
 const rootReducer = (state, action) => {

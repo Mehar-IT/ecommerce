@@ -232,9 +232,13 @@ exports.deleteUserByAdmin = asyncErrorHandler(async (req, res, next) => {
     next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
   }
 
+  const imageId = user.avatar.public_id;
+  await cloudinary.v2.uploader.destroy(imageId);
+
   await user.remove();
 
   res.status(200).json({
     success: true,
+    message: "User Deleted Successfully",
   });
 });

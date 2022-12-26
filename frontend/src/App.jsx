@@ -37,6 +37,7 @@ import NewProduct from "./components/Admin/NewProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
 import OrderList from "./components/Admin/OrderList";
 import ProcessOrder from "./components/Admin/ProcessOrder";
+import UsersList from "./components/Admin/UsersList";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -95,6 +96,7 @@ function App() {
           <Route extact path="/admin/product/:id" element={<UpdateProduct />} />
           <Route extact path="/admin/orders" element={<OrderList />} />
           <Route extact path="/admin/order/:id" element={<ProcessOrder />} />
+          <Route extact path="/admin/users" element={<UsersList />} />
         </Route>
 
         <Route
