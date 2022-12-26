@@ -98,6 +98,17 @@ import {
   deleteUserFailed,
 } from "../adminSlice/deleteUserSlice";
 import {
+  allReviewStart,
+  allReviewSuccess,
+  allReviewFailed,
+} from "../adminSlice/productReviewSlice";
+
+import {
+  deleteReviewStart,
+  deleteReviewSuccess,
+  deleteReviewFailed,
+} from "../adminSlice/deleteReviewSlice";
+import {
   myOrdersRequest,
   myOrdersSucess,
   myOrdersFail,
@@ -433,5 +444,31 @@ export const deleteUser = async (dispatch, id) => {
     dispatch(deleteUserSuccess(data));
   } catch (error) {
     dispatch(deleteUserFailed(error.response.data.error));
+  }
+};
+
+export const getAllReviews = async (dispatch, id) => {
+  try {
+    dispatch(allReviewStart());
+
+    const { data } = await publicRequest.get(`/reviews?id=${id}`);
+
+    dispatch(allReviewSuccess(data.reviews));
+  } catch (error) {
+    dispatch(allReviewFailed(error.response.data.error));
+  }
+};
+
+export const deleteReviews = async (dispatch, reviewId, productId) => {
+  try {
+    dispatch(deleteReviewStart());
+
+    const { data } = await publicRequest.delete(
+      `/reviews?id=${reviewId}&productId=${productId}`
+    );
+
+    dispatch(deleteReviewSuccess(data.success));
+  } catch (error) {
+    dispatch(deleteReviewFailed(error.response.data.error));
   }
 };

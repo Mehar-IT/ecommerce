@@ -93,7 +93,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
     user.resetPasswordExpire = undefined;
     await user.save({ validateBeforeSave: false });
 
-    next(new ErrorHandler(error.message, 500));
+    return next(new ErrorHandler(error.message, 500));
   }
 });
 
@@ -195,7 +195,9 @@ exports.getsindleUserByAdmin = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
+    return next(
+      new ErrorHandler(`user not found with id ${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({
@@ -218,7 +220,9 @@ exports.updateUserByAdmin = asyncErrorHandler(async (req, res, next) => {
   });
 
   if (!user) {
-    next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
+    return next(
+      new ErrorHandler(`user not found with id ${req.params.id}`, 404)
+    );
   }
   res.status(200).json({
     success: true,
@@ -229,7 +233,9 @@ exports.deleteUserByAdmin = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    next(new ErrorHandler(`user not found with id ${req.params.id}`, 404));
+    return next(
+      new ErrorHandler(`user not found with id ${req.params.id}`, 404)
+    );
   }
 
   const imageId = user.avatar.public_id;

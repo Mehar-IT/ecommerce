@@ -34,6 +34,8 @@ import allUserReducer from "./adminSlice/allUserSlice";
 import deleteUserReducer from "./adminSlice/deleteUserSlice";
 import updateUserReducer from "./adminSlice/updateUserSlice";
 import userDetailReducer from "./adminSlice/userDetailSilce";
+import productReviewReducer from "./adminSlice/productReviewSlice";
+import deleteReviewReducer from "./adminSlice/deleteReviewSlice";
 
 const persistConfig = {
   key: "root",
@@ -62,6 +64,8 @@ const appReducer = combineReducers({
   updateUser: updateUserReducer,
   deleteUser: deleteUserReducer,
   userDetail: userDetailReducer,
+  productReview: productReviewReducer,
+  deleteReview: deleteReviewReducer,
 });
 
 const rootReducer = (state, action) => {
