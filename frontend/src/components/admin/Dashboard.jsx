@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   const { products } = useSelector((state) => state.products);
 
-  const { order } = useSelector((state) => state.order);
+  const { orders } = useSelector((state) => state.orderList);
 
   //   const { users } = useSelector((state) => state.allUsers);
 
@@ -35,11 +35,11 @@ const Dashboard = () => {
     // dispatch(getAllUsers());
   }, [dispatch]);
 
-  // let totalAmount = 0;
-  // order &&
-  //   order.forEach((item) => {
-  //     totalAmount += item.totalPrice;
-  //   });
+  let totalAmount = 0;
+  orders &&
+    orders.forEach((item) => {
+      totalAmount += item.totalPrice;
+    });
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -48,8 +48,7 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        // data: [0, totalAmount],
-        data: [0, 12],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -76,8 +75,7 @@ const Dashboard = () => {
         <div className="dashboardSummary">
           <div>
             <p>
-              {/* Total Amount <br /> ₹{totalAmount} */}
-              Total Amount <br /> ₹{12}
+              Total Amount <br /> ₹{totalAmount}
             </p>
           </div>
           <div className="dashboardSummaryBox2">
@@ -87,7 +85,7 @@ const Dashboard = () => {
             </Link>
             <Link to="/admin/orders">
               <p>Orders</p>
-              <p>{order && order.length}</p>
+              <p>{orders && orders.length}</p>
             </Link>
             <Link to="/admin/users">
               <p>Users</p>
