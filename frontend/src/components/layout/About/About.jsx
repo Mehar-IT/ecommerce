@@ -3,7 +3,7 @@ import "./aboutSection.css";
 import { Button, Typography, Avatar } from "@material-ui/core";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import personal from "../../../images/personal.jpeg";
+import personal from "../../../images/personal.jpg";
 
 const About = () => {
   const visitInstagram = () => {
@@ -19,7 +19,11 @@ const About = () => {
         <div>
           <div>
             <Avatar
-              style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
+              style={{
+                width: "10vmax",
+                height: "10vmax",
+                margin: "2vmax 0",
+              }}
               src={personal}
               alt="Founder"
             />

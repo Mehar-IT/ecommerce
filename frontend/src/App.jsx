@@ -41,6 +41,7 @@ import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
 import About from "./components/layout/About/About";
 import Contact from "./components/layout/Contact/Contact";
+import NotFound from "./components/layout/NotFound/NotFound";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -63,6 +64,25 @@ function App() {
     });
     isAuthenticated && getStripeApiKey();
   }, [stripeApiKey, isAuthenticated]);
+
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
+  // document.onkeydown = function (e) {
+  //   if (e.key == 123) {
+  //     return false;
+  //   }
+  //   if (e.ctrlKey && e.shiftKey && e.key == "I".charCodeAt(0)) {
+  //     return false;
+  //   }
+  //   if (e.ctrlKey && e.shiftKey && e.key == "C".charCodeAt(0)) {
+  //     return false;
+  //   }
+  //   if (e.ctrlKey && e.shiftKey && e.key == "J".charCodeAt(0)) {
+  //     return false;
+  //   }
+  //   if (e.ctrlKey && e.key == "U".charCodeAt(0)) {
+  //     return false;
+  //   }
+  // };
 
   return (
     <Router>
@@ -118,6 +138,7 @@ function App() {
         <Route extact path="/search" element={<Search />} />
         <Route extact path="/login" element={<LoginSignUp />} />
         <Route extact path="/cart" element={<Cart />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>
