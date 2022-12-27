@@ -12,7 +12,7 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "backend/config/config.env" });
 // app.use(cors({ credentials: true, origin: "http://127.0.0.1:5173" }));
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());

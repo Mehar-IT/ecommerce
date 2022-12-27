@@ -9,7 +9,7 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "backend/config/config.env" });
 connectDatabase();
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
