@@ -70,7 +70,10 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
   const resetToken = user.resetPassword();
   await user.save({ validateBeforeSave: false });
 
-  const resetPassword = `${process.env.FRONTEND_URL}password/reset/${resetToken}`;
+  const resetPassword = `${req.protocol}://${req.get(
+    "host"
+  )}/password/reset/${resetToken}`;
+  // const resetPassword = `${process.env.FRONTEND_URL}password/reset/${resetToken}`;
   // const resetPassword = `${req.protocol}://${req.get(
   //   "host"
   // )}/api/v1/password/reset/${resetToken}`;
