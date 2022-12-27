@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "./Shipping.css";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../../redux/utils/apiCalls";
@@ -18,7 +18,7 @@ const Shipping = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
-  // const { shippingInfo } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -46,6 +46,11 @@ const Shipping = () => {
 
     navigate("/order/confirm");
   };
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      navigate("/cart");
+    }
+  }, [cartItems]);
 
   return (
     <Fragment>

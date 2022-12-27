@@ -38,6 +38,7 @@ import OrderList from "./components/Admin/OrderList";
 import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
+import Loader from "./components/layout/Loader/Loader";
 import ProductReviews from "./components/Admin/ProductReviews";
 import About from "./components/layout/About/About";
 import Contact from "./components/layout/Contact/Contact";
@@ -106,10 +107,12 @@ function App() {
             exact
             path="/process/payment"
             element={
-              stripeApiKey && (
+              stripeApiKey ? (
                 <Elements stripe={loadStripe(stripeApiKey)}>
                   <Payment />
                 </Elements>
+              ) : (
+                <Loader />
               )
             }
           />

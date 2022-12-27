@@ -112,11 +112,14 @@ const Payment = () => {
   };
 
   useEffect(() => {
+    if (!orderInfo) {
+      navigate("/login/shipping");
+    }
     if (error) {
       alert.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, error, alert]);
+  }, [dispatch, error, alert, shippingInfo]);
 
   return (
     <Fragment>
