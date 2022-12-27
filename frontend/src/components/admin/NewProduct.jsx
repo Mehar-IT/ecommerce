@@ -102,7 +102,6 @@ const NewProduct = () => {
             onSubmit={createProductSubmitHandler}
           >
             <h1>Create Product</h1>
-
             <div>
               <SpellcheckIcon />
               <input
@@ -122,7 +121,6 @@ const NewProduct = () => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-
             <div>
               <DescriptionIcon />
 
@@ -134,19 +132,23 @@ const NewProduct = () => {
                 rows="1"
               ></textarea>
             </div>
-
             <div>
               <AccountTreeIcon />
-              <select onChange={(e) => setCategory(e.target.value)}>
-                <option value="">Choose Category</option>
+              <input
+                type="text"
+                list="category"
+                placeholder="Category"
+                required
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              />
+              <datalist id="category">
                 {categories.map((cate) => (
-                  <option key={cate} value={cate}>
-                    {cate}
-                  </option>
+                  <option key={cate}>{cate}</option>
                 ))}
-              </select>
+              </datalist>
             </div>
-
             <div>
               <StorageIcon />
               <input
@@ -156,7 +158,6 @@ const NewProduct = () => {
                 onChange={(e) => setStock(e.target.value)}
               />
             </div>
-
             <div id="createProductFormFile">
               <input
                 type="file"
@@ -166,13 +167,11 @@ const NewProduct = () => {
                 multiple
               />
             </div>
-
             <div id="createProductFormImage">
               {imagesPreview.map((image, index) => (
                 <img key={index} src={image} alt="Product Preview" />
               ))}
             </div>
-
             <Button
               id="createProductBtn"
               type="submit"

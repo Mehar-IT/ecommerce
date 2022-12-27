@@ -95,17 +95,21 @@ export default function Products() {
         />
 
         <Typography>Categories</Typography>
+
         <ul className="categoryBox">
-          {categories.map((category) => (
-            <li
-              className="category-link"
-              key={category}
-              onClick={() => setCategory(category)}
-            >
-              {category}
-            </li>
-          ))}
+          {categories.map((item, index) => {
+            return (
+              <li
+                className="category-link"
+                key={index}
+                onClick={() => setCategory(item)}
+              >
+                {item}
+              </li>
+            );
+          })}
         </ul>
+
         <fieldset>
           <Typography component="legend">Ratings Above</Typography>
           <Slider
