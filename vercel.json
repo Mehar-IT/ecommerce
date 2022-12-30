@@ -11,5 +11,5 @@
     }
   ],
 
-  "rewrites": [{ "source": "/(.*)", "destination": "/backend/server.js" }]
+  "routes": [{ "src": "/(.*)", "dest": "/backend/server.js" }]
 }

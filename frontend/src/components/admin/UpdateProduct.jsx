@@ -47,18 +47,18 @@ const UpdateProduct = () => {
   ];
 
   const productId = id;
+
   useEffect(() => {
-    if (product && product._id === productId) {
+    if (product && product._id !== productId) {
       getProductDetail(dispatch, productId);
+    } else {
+      setName(product.name);
+      setDescription(product.description);
+      setPrice(product.price);
+      setCategory(product.category);
+      setStock(product.stock);
+      setOldImages(product.images);
     }
-  }, []);
-  useEffect(() => {
-    setName(product.name);
-    setDescription(product.description);
-    setPrice(product.price);
-    setCategory(product.category);
-    setStock(product.stock);
-    setOldImages(product.images);
 
     if (error) {
       alert.error(error);
