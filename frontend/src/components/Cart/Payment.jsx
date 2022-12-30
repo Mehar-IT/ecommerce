@@ -60,11 +60,11 @@ const Payment = () => {
         },
         withCredentials: true,
       };
-      const { data } = await axios.post(
-        "http://127.0.0.1:3000/api/v1/payment/process",
-        paymentData,
-        config
-      );
+      const BASE_URL =
+        import.meta.env.MODE === "development"
+          ? "http://127.0.0.1:3000/api/v1"
+          : "/api/v1";
+      const { data } = await axios.post(BASE_URL, paymentData, config);
 
       const client_secret = data.client_secret;
 

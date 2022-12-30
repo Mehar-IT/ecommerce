@@ -49,10 +49,11 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get(
-      "http://127.0.0.1:3000/api/v1/stripeapikey",
-      { withCredentials: true }
-    );
+    const BASE_URL =
+      import.meta.env.MODE === "development"
+        ? "http://127.0.0.1:3000/api/v1"
+        : "/api/v1";
+    const { data } = await axios.get(BASE_URL, { withCredentials: true });
 
     setStripeApiKey(data.stripeApiKey);
   }
