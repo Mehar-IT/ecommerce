@@ -51,8 +51,8 @@ function App() {
   async function getStripeApiKey() {
     const BASE_URL =
       import.meta.env.MODE === "development"
-        ? "http://127.0.0.1:3000/api/v1"
-        : "/api/v1";
+        ? "http://127.0.0.1:3000/api/v1/stripeapikey"
+        : "/api/v1/stripeapikey";
     const { data } = await axios.get(BASE_URL, { withCredentials: true });
 
     setStripeApiKey(data.stripeApiKey);
@@ -68,24 +68,24 @@ function App() {
     isAuthenticated && getStripeApiKey();
   }, [stripeApiKey, isAuthenticated]);
 
-  // window.addEventListener("contextmenu", (e) => e.preventDefault());
-  // document.onkeydown = function (e) {
-  //   if (e.key == 123) {
-  //     return false;
-  //   }
-  //   if (e.ctrlKey && e.shiftKey && e.key == "I".charCodeAt(0)) {
-  //     return false;
-  //   }
-  //   if (e.ctrlKey && e.shiftKey && e.key == "C".charCodeAt(0)) {
-  //     return false;
-  //   }
-  //   if (e.ctrlKey && e.shiftKey && e.key == "J".charCodeAt(0)) {
-  //     return false;
-  //   }
-  //   if (e.ctrlKey && e.key == "U".charCodeAt(0)) {
-  //     return false;
-  //   }
-  // };
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
+  document.onkeydown = function (e) {
+    if (event.keyCode == 123) {
+      return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+      return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0)) {
+      return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+      return false;
+    }
+    if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) {
+      return false;
+    }
+  };
 
   return (
     <Router>
