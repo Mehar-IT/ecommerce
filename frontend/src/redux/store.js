@@ -37,11 +37,6 @@ import userDetailReducer from "./adminSlice/userDetailSilce";
 import productReviewReducer from "./adminSlice/productReviewSlice";
 import deleteReviewReducer from "./adminSlice/deleteReviewSlice";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
 
 const appReducer = combineReducers({
   products: productReducer,
@@ -67,6 +62,13 @@ const appReducer = combineReducers({
   productReview: productReviewReducer,
   deleteReview: deleteReviewReducer,
 });
+
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+  whitelist: ['user', 'cart']
+};
 
 const rootReducer = (state, action) => {
   if (action.type === "RESET_STATE") {

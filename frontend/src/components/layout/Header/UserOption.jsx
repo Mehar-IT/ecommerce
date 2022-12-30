@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { logout } from "../../../redux/utils/apiCalls";
-import { resetAllData } from "../../../redux/store";
+import { resetAllData, persistor } from "../../../redux/store";
 
 export default function UserOption({ user }) {
   const [open, setOpen] = useState(false);
@@ -59,14 +59,19 @@ export default function UserOption({ user }) {
   }
   async function logoutUser() {
     logout(dispatch);
-    dispatch(resetAllData());
-    alert.success("Logout Successfully", {
-      onOpen: () => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      },
+    // dispatch(resetAllData());
+    persistor.pause();
+    persistor.flush().then(() => {
+      return persistor.purge();
     });
+    alert.success("Logout Successfully");
+    // , {
+    //   onOpen: () => {
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 500);
+    //   },
+    // });
   }
 
   return (
