@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/Route/ProtectedRoute";
 import WebFont from "webfontloader";
 import { useEffect, useState } from "react";
 import Header from "./components/layout/Header/Header";
@@ -12,10 +13,6 @@ import LoginSignUp from "./components/User/LoginSignUp";
 import { useSelector } from "react-redux";
 import UserOption from "./components/layout/Header/UserOption";
 import Profile from "./components/User/Profile";
-import {
-  AdminProtectedRoute,
-  UserProtectedRoute,
-} from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
@@ -94,7 +91,7 @@ function App() {
 
       <Routes>
         <Route extact path="/" element={<Home />} />
-        <Route element={<UserProtectedRoute />}>
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route extact path="/account" element={<Profile />} />
           <Route extact path="/me/update" element={<UpdateProfile />} />
           <Route extact path="/password/update" element={<UpdatePassword />} />
@@ -119,7 +116,15 @@ function App() {
             }
           />
         </Route>
-        <Route element={<AdminProtectedRoute />}>
+        <Route
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin" ? true : false}
+            />
+          }
+        >
           <Route extact path="/admin/dashboard" element={<Dashboard />} />
           <Route extact path="/admin/products" element={<ProducrList />} />
           <Route extact path="/admin/product" element={<NewProduct />} />
