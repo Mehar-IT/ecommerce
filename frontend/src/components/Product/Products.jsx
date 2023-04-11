@@ -27,10 +27,12 @@ export default function Products() {
   const alert = useAlert();
 
   const [price, setprice] = useState([0, 25000]);
+  const [newPrice, setNewPrice] = useState([0, 25000]);
+  const [ratings, setRatings] = useState(0);
+  const [newRatings, setNewRatings] = useState(0);
   const [currentPage, setcurrentPage] = useState(1);
   const [category, setCategory] = useState("");
   const { keyword } = useParams();
-  const [ratings, setRatings] = useState(0);
 
   const {
     products,
@@ -45,6 +47,9 @@ export default function Products() {
   const priceHandler = (e, newPrice) => {
     setprice(newPrice);
   };
+  const newpriceHandler = (e, newPrice) => {
+    setNewPrice(newPrice);
+  };
 
   const setCurrentPageNo = (e) => {
     setcurrentPage(e);
@@ -55,11 +60,11 @@ export default function Products() {
       dispatch,
       keyword,
       currentPage,
-      price,
+      newPrice,
       category.toLowerCase(),
-      ratings
+      newRatings
     );
-  }, [dispatch, keyword, currentPage, price, category, ratings]);
+  }, [dispatch, keyword, currentPage, newPrice, category, newRatings]);
 
   useEffect(() => {
     if (error) {
@@ -88,6 +93,7 @@ export default function Products() {
         <Slider
           value={price}
           onChange={priceHandler}
+          onChangeCommitted={newpriceHandler}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           min={0}
@@ -116,6 +122,9 @@ export default function Products() {
             value={ratings}
             onChange={(e, newRating) => {
               setRatings(newRating);
+            }}
+            onChangeCommitted={(e, newRating) => {
+              setNewRatings(newRating);
             }}
             aria-labelledby="continuous-slider"
             valueLabelDisplay="auto"
